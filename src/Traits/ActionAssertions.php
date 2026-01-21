@@ -10,6 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
+use PHPUnit\Framework\NativeType;
 
 trait ActionAssertions
 {
@@ -73,8 +74,8 @@ trait ActionAssertions
         PHPUnit::assertThat(
             $this->component->actions(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(IsType::TYPE_ARRAY),
-                new TraversableContainsOnly(Action::class, false)
+                new IsType(NativeType::Array),
+                TraversableContainsOnly::forClassOrInterface(Action::class)
             ),
             $message
         );

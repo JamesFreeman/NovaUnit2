@@ -12,6 +12,7 @@ use JoshGaber\NovaUnit\Resources\MockResource;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\IsType;
+use PHPUnit\Framework\NativeType;
 
 trait FieldAssertions
 {
@@ -76,7 +77,7 @@ trait FieldAssertions
         PHPUnit::assertThat(
             $this->component->fields(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(IsType::TYPE_ARRAY),
+                new IsType(NativeType::Array),
                 new HasValidFields($this->allowPanels())
             ),
             $message
