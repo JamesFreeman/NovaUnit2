@@ -8,8 +8,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
-use PHPUnit\Framework\NativeType;
-use function PHPUnit\Framework\isArray;
 
 trait FilterAssertions
 {
@@ -73,8 +71,12 @@ trait FilterAssertions
         PHPUnit::assertThat(
             $this->component->filters(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                isArray(),
-                TraversableContainsOnly::forClassOrInterface(Filter::class)
+                function_exists('\PHPUnit\Framework\isArray')
+                    ? \PHPUnit\Framework\isArray()
+                    : new IsType(constant('PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY') ?? 'array'),
+                method_exists(\PHPUnit\Framework\Constraint\TraversableContainsOnly::class, 'forClassOrInterface')
+                    ? TraversableContainsOnly::forClassOrInterface(Filter::class)
+                    : new TraversableContainsOnly(Filter::class, false)
             ),
             $message
         );
