@@ -9,6 +9,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
 use PHPUnit\Framework\NativeType;
+use function PHPUnit\Framework\isArray;
 
 trait FilterAssertions
 {
@@ -72,7 +73,7 @@ trait FilterAssertions
         PHPUnit::assertThat(
             $this->component->filters(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(NativeType::Array),
+                isArray(),
                 TraversableContainsOnly::forClassOrInterface(Filter::class)
             ),
             $message

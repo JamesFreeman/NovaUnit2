@@ -8,9 +8,8 @@ use JoshGaber\NovaUnit\Constraints\ArrayHasInstanceOf;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use PHPUnit\Framework\Assert as PHPUnit;
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
-use PHPUnit\Framework\NativeType;
+use function PHPUnit\Framework\isArray;
 
 trait ActionAssertions
 {
@@ -74,7 +73,7 @@ trait ActionAssertions
         PHPUnit::assertThat(
             $this->component->actions(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(NativeType::Array),
+                isArray(),
                 TraversableContainsOnly::forClassOrInterface(Action::class)
             ),
             $message
