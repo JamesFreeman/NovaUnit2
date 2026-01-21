@@ -74,7 +74,7 @@ trait FilterAssertions
                 function_exists('\PHPUnit\Framework\isArray')
                     ? \PHPUnit\Framework\isArray()
                     : new IsType(constant('PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY') ?? 'array'),
-                method_exists(\PHPUnit\Framework\Constraint\TraversableContainsOnly::class, 'forClassOrInterface')
+                method_exists(TraversableContainsOnly::class, 'forClassOrInterface')
                     ? TraversableContainsOnly::forClassOrInterface(Filter::class)
                     : new TraversableContainsOnly(Filter::class, false)
             ),
