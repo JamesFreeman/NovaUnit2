@@ -68,9 +68,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 If you discover any security related issues, please email rob _at_ `quotevelocity`.com instead of using the issue tracker.
 
-## Maintained By
-* [Robert Marney](https://github.com/robertmarney) (Maintainer)
-
 ## Created By
 
 * [Josh Gaber](https://github.com/joshgaber) (Creator)
