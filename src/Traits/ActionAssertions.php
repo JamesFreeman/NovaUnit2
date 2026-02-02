@@ -73,8 +73,12 @@ trait ActionAssertions
         PHPUnit::assertThat(
             $this->component->actions(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(IsType::TYPE_ARRAY),
-                new TraversableContainsOnly(Action::class, false)
+                function_exists('\PHPUnit\Framework\isArray')
+                    ? \PHPUnit\Framework\isArray()
+                    : new IsType(constant('PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY') ?? 'array'),
+                method_exists(TraversableContainsOnly::class, 'forClassOrInterface')
+                    ? TraversableContainsOnly::forClassOrInterface(Action::class)
+                    : new TraversableContainsOnly(Action::class, false)
             ),
             $message
         );

@@ -76,7 +76,9 @@ trait FieldAssertions
         PHPUnit::assertThat(
             $this->component->fields(NovaRequest::createFromGlobals()),
             PHPUnit::logicalAnd(
-                new IsType(IsType::TYPE_ARRAY),
+                function_exists('\PHPUnit\Framework\isArray')
+                    ? \PHPUnit\Framework\isArray()
+                    : new IsType(constant('PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY') ?? 'array'),
                 new HasValidFields($this->allowPanels())
             ),
             $message
